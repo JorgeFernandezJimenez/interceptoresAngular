@@ -4,10 +4,10 @@ import { CredentialsComponent } from './credentials/credentials.component';
 
 const routes: Routes = [
   {path: 'login', component: CredentialsComponent, data: {
-    title: 'login', datos: {email: 'holi@holi.com', pass: 'adios'}
+    title: 'Login', datos: {email: 'holi@holi.com', pass: 'adios'}, alternate: 'registro'
   }},
   {path: 'registro', component: CredentialsComponent, data: {
-    title: 'registro'
+    title: 'Registro', datos: {email: '', pass: ''}, alternate: 'login'
   }}
 ];
 

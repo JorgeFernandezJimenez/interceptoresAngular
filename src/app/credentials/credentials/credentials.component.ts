@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CredentialsService } from './credentials.service';
+import { StoreService } from 'src/app/lib/store.service';
 
 @Component({
   selector: 'app-credentials',
@@ -8,14 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CredentialsComponent implements OnInit {
 
-  public isLogin: boolean;
   public data: any;
+  public errorMessage: string;
 
   constructor(
-    private activatedRoute: ActivatedRoute
-  ) {
-    this.isLogin = false;
-  }
+    private activatedRoute: ActivatedRoute,
+    private _credentialService: CredentialsService,
+    private router: Router,
+    private store: StoreService
+  ) { }
 
   ngOnInit() {
     this.loadData();
@@ -23,8 +26,30 @@ export class CredentialsComponent implements OnInit {
 
   private loadData() {
     this.data = this.activatedRoute.snapshot.data;
-    console.log(this.data);
-    this.isLogin = this.data.title == 'login' ? true : false;
   }
+
+  public submit() {
+    this.errorMessage = '';
+    if(this.data.title == 'Login') {
+      this._credentialService.login(this.data.datos).subscribe(this.acceptedCredentials.bind(this));
+    }else {
+      this._credentialService.register(this.data.datos).subscribe(this.acceptedCredentials.bind(this));
+    }
+}
+
+  private acceptedCredentials(response) {
+    if(response && response.token) {
+      this.store.emitToken(response.token);
+      this.router.navigateByUrl('/');
+    }else {
+      this.invalidCredentials();
+    }
+  }
+
+  private invalidCredentials() {
+    this.store.emitToken(null);
+    this.errorMessage = 'Invalid Credentials';
+  }
+
 
 }

@@ -12,7 +12,7 @@ export class OperationService {
   constructor(
     private http: HttpClient
   ) {
-    this.url = environment.apiUrl + 'operations/';
+    this.url = environment.apiUrl + "priv/operations/";
   }
 
   public getOperations(): Observable<Operation[]> {

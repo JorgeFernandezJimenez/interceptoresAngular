@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://api-base.escuelabinaria.com/api/priv/"
+  apiUrl: "http://api-base.escuelabinaria.com/api/"
 };
 
 /*
