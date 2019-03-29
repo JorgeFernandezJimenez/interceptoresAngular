@@ -5,6 +5,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewsModule } from './views/views.module';
+import { ApiModule } from './api/api.module';
+import { HttpClientModule } from '@angular/common/http';
+import { LibModule } from './lib/lib.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { ViewsModule } from './views/views.module';
     BrowserModule,
     AppRoutingModule,
     ViewsModule,
-    NgbModule
+    NgbModule,
+    ApiModule,
+    HttpClientModule,
+    LibModule
   ],
   providers: [],
   bootstrap: [AppComponent]

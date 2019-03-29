@@ -20,7 +20,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
       if(error instanceof HttpErrorResponse) {
         this.errorResponse(error);
       }else {
-        console.log(error);
+        console.log(error.status);
       }
     }));
     return handledRequest;
@@ -28,7 +28,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
   // Comprueba si el error es de autenticación para enviarlo al login
   private errorResponse(error: HttpErrorResponse) {
-    if(error.status == 401) {
+    if(error.status === 401) {
       this._storeService.emitMessage('No autorizado');
       this.redirectToLogin();
     }else {
